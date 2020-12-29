@@ -1,2 +1,0 @@
-class ReferenceDuplicatesController < ApplicationController
-end

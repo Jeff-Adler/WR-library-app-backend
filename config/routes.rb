@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :alts
   resources :reference_duplicates
   resources :author_books
   resources :books
