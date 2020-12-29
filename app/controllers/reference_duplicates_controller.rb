@@ -1,0 +1,2 @@
+class ReferenceDuplicatesController < ApplicationController
+end
