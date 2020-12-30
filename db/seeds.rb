@@ -8,7 +8,7 @@ Alt.destroy_all
 10.times do 
     author = Author.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name )
     book = Book.create(title: Faker::Book.title)
-    AuthorBook.create(author: author, book: book)
+    AuthorBook.create(author_id: author.id, book_id: book.id)
 end
 
 Book.all.each do |book|

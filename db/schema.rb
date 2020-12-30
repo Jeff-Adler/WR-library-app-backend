@@ -12,17 +12,20 @@
 
 ActiveRecord::Schema.define(version: 2020_12_29_163010) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "alts", force: :cascade do |t|
     t.string "title", null: false
-    t.integer "book_id", null: false
+    t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["book_id"], name: "index_alts_on_book_id"
   end
 
   create_table "author_books", force: :cascade do |t|
-    t.integer "author_id", null: false
-    t.integer "book_id", null: false
+    t.bigint "author_id", null: false
+    t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_author_books_on_author_id"
