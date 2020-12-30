@@ -34,5 +34,10 @@ RSpec.describe Alt, type: :model do
     alt = Alt.create(title: Faker::Book.title, book_id: @book.id)
     expect{alt.destroy()}.to change(Book.all, :count).by(0)
   end
-  it "is valid if book with duplicate title is first deleted, and then added to Alts"
+  it "is valid to convert alt to books" do    
+    alt = Alt.create(title: Faker::Book.title, book_id: @book.id)
+    expect{alt.convert_to_book}.to change(Book.all, :count).by(1)
+    .and change(Alt.all, :count).by(-1)
+    .and change(@book.alts, :count).by(-1)
+  end
 end

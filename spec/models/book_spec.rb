@@ -53,6 +53,10 @@ RSpec.describe Book, type: :model do
     alt = Alt.create(title: Faker::Book.title, book_id: @book.id)
     expect{alt.destroy()}.to change(@book.alts, :count).by(-1)
   end
-  it "can be added to alts"
-  it "will be added, if added to alts"
+  it "is valid to convert book to alts" do
+    book = Book.create(title: Faker::Book.title) 
+    expect{book.convert_to_alt(@book)}.to change(Book.all, :count).by(-1)
+    .and change(Alt.all, :count).by(1)
+    .and change(@book.alts, :count).by(1)
+  end
 end

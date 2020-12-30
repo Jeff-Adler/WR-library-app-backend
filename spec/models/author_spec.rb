@@ -29,9 +29,9 @@ RSpec.describe Author, type: :model do
     expect{author.destroy()}.to change(Author.all, :count).by(-1)
   end
   it "deletes associated AuthorBook record when deleted" do
-    author = Author.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-    book = Book.create(title: Faker::Book.title) 
-    AuthorBook.create(author_id: author.id, book_id: book.id)
+    author = Author.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+    book = Book.create!(title: Faker::Book.title) 
+    AuthorBook.create!(author_id: author.id, book_id: book.id)
     expect{author.destroy()}.to change(AuthorBook.all, :count).by(-1)
   end
   it "does not delete associated Book record when deleted" do
