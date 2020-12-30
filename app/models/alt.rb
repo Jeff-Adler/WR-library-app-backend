@@ -12,5 +12,8 @@ class Alt < ApplicationRecord
 
   #Remove self from Alts and adds it to Books
   def convert_to_book
+    book = Book.new(title:self.title)
+    self.destroy
+    book.save
   end
 end

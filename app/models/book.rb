@@ -13,5 +13,8 @@ class Book < ApplicationRecord
 
     #Remove self from Books and adds it as Alt of reference_book
     def convert_to_alt(reference_book)
+        alt = Alt.new(title: self.title, book_id: reference_book.id)
+        self.destroy
+        alt.save
     end
 end
