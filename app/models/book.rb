@@ -11,7 +11,7 @@ class Book < ApplicationRecord
         self.errors.add(:title, 'exists as an alt') if Alt.where(title: self.title).exists?
     end
 
-    def make_alt(reference_book)
-        #Removes self from Books and adds it as Alt of reference_book
+    #Remove self from Books and adds it as Alt of reference_book
+    def convert_to_alt(reference_book)
     end
 end

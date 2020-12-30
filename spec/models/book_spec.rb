@@ -19,10 +19,24 @@ RSpec.describe Book, type: :model do
   it "is not valid if title has a duplicate in Alts" do
     book = Book.new(title: @alt.title)
     expect(book).to_not be_valid
-    expect(book.errors[:check_if_alt]).to be_present
+    expect(book.errors[:title]).to be_present
   end
   it "can be added to alts"
   it "will be added, if added to alts"
-  it "deletes associated AuthorBook record when deleted"
-  it "deletes associated alts when deleted"
+  it "can be deleted" do
+    book = Book.create(title: Faker::Book.title)
+    expect{book.destroy()}.to change(Book.all, :count).by(-1)
+  end
+  it "deletes associated AuthorBook record when deleted" do
+    author = Author.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+    book = Book.create(title: Faker::Book.title) 
+    AuthorBook.create(author_id: author.id, book_id: book.id)
+    expect{book.destroy()}.to change(AuthorBook.all, :count).by(-1)
+  end
+  it "does not delete associated Book record when deleted" do
+    author = Author.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+    book = Book.create(title: Faker::Book.title) 
+    AuthorBook.create(author_id: author.id, book_id: book.id)
+    expect{book.destroy()}.to change(Author.all, :count).by(0)
+  end
 end
