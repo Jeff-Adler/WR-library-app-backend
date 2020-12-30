@@ -21,8 +21,6 @@ RSpec.describe Book, type: :model do
     expect(book).to_not be_valid
     expect(book.errors[:title]).to be_present
   end
-  it "can be added to alts"
-  it "will be added, if added to alts"
   it "can be deleted" do
     book = Book.create(title: Faker::Book.title)
     expect{book.destroy()}.to change(Book.all, :count).by(-1)
@@ -39,4 +37,22 @@ RSpec.describe Book, type: :model do
     AuthorBook.create(author_id: author.id, book_id: book.id)
     expect{book.destroy()}.to change(Author.all, :count).by(0)
   end
+  it "can change associations between alts, to book, without creating multiple books associated to the same alt" do
+    book2 = Book.create(title: Faker::Book.title)
+    alt1 = Alt.create(title: Faker::Book.title, book_id: book2.id)
+    alt2 = Alt.create(title: Faker::Book.title, book_id: book2.id)
+    alt3 = Alt.create(title: Faker::Book.title, book_id: book2.id)
+    expect{@book.alts << alt1}.to change(@book.alts, :count).by(1)
+    expect{@book.alts << alt2}.to change(@book.alts, :count).by(1)
+    expect{@book.alts << alt3}.to change(@book.alts, :count).by(1)
+    expect{book2.alts << alt1}.to change(@book.alts, :count).by(-1)
+    expect{book2.alts << alt2}.to change(@book.alts, :count).by(-1)
+    expect{book2.alts << alt3}.to change(@book.alts, :count).by(-1)
+  end
+  it "can remove association between alt and book" do
+    alt = Alt.create(title: Faker::Book.title, book_id: @book.id)
+    expect{alt.destroy()}.to change(@book.alts, :count).by(-1)
+  end
+  it "can be added to alts"
+  it "will be added, if added to alts"
 end
