@@ -8,10 +8,16 @@ Simple library app to look up books by title and author, as well as mark books a
 
 ## Database Integrity and Model Testing
 
-To test the full est of model unit tests, from the console, run:
+To run all model unit tests: from the console, run:
 
 ```
 rspec spec/models/
+```
+
+To run all routing specs: from the console, run:
+
+```
+rspec spec/routing/
 ```
 
 Models and database are tested for:

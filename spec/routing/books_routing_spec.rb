@@ -10,7 +10,6 @@ RSpec.describe BooksController, type: :routing do
       expect(get: "/books/1").to route_to("books#show", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/books").to route_to("books#create")
     end
@@ -25,6 +24,10 @@ RSpec.describe BooksController, type: :routing do
 
     it "routes to #destroy" do
       expect(delete: "/books/1").to route_to("books#destroy", id: "1")
+    end
+
+    it "routes to #convert_to_alt via PATCH" do
+      expect(patch: "/books/1/convert_to_alt/2").to route_to("books#convert_to_alt", id: "1", reference_book_id: "2")
     end
   end
 end
