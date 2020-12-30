@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
+  before_action :set_book, only: [:convert_to_alt]
 
   # GET /books
   def index
@@ -24,6 +25,17 @@ class BooksController < ApplicationController
     end
   end
 
+  # PATCH/PUT books/1/convert_to_alt/2
+  def convert_to_alt
+    alt = @book.convert_to_alt(@reference_book)
+
+    if alt
+      render json: alt
+    else
+      render json: alt.errors, status: :unprocessable_entity
+    end
+  end
+
   # PATCH/PUT /books/1
   def update
     if @book.update(book_params)
@@ -42,6 +54,12 @@ class BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_books
+      @book = Book.find(params[:id])
+      @reference_book = Book.find(params[:reference_book_id])
     end
 
     # Only allow a trusted parameter "white list" through.

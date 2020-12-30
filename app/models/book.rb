@@ -16,5 +16,6 @@ class Book < ApplicationRecord
         alt = Alt.new(title: self.title, book_id: reference_book.id)
         self.destroy
         alt.save
+        return alt
     end
 end

@@ -15,5 +15,6 @@ class Alt < ApplicationRecord
     book = Book.new(title:self.title)
     self.destroy
     book.save
+    return book
   end
 end

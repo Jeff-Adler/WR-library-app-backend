@@ -1,5 +1,5 @@
 class AltsController < ApplicationController
-  before_action :set_alt, only: [:show, :update, :destroy]
+  before_action :set_alt, only: [:show, :update, :destroy, :convert_to_book]
 
   # GET /alts
   def index
@@ -11,6 +11,17 @@ class AltsController < ApplicationController
   # GET /alts/1
   def show
     render json: @alt
+  end
+
+  # PATCH/PUT /alts/1/convert_to_book
+  def convert_to_book
+    book = @alt.convert_to_book
+    
+    if book
+      render json: book
+    else
+      render json: book.errors, status: :unprocessable_entity
+    end
   end
 
   # POST /alts
