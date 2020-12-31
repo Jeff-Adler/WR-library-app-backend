@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
 
-    render json: @books
+    render json: @books.sort_by{ |book| book.title }
   end
 
   # GET /books/1
