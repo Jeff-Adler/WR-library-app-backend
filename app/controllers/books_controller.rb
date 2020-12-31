@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
-  before_action :set_book, only: [:convert_to_alt]
+  before_action :set_books, only: [:convert_to_alt]
 
   # GET /books
   def index
@@ -28,9 +28,10 @@ class BooksController < ApplicationController
   # PATCH/PUT books/1/convert_to_alt/2
   def convert_to_alt
     alt = @book.convert_to_alt(@reference_book)
+    @books = Book.all
 
     if alt
-      render json: alt
+      render json: @books.sort_by{ |book| book.title }, status: :accepted
     else
       render json: alt.errors, status: :unprocessable_entity
     end

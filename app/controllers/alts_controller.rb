@@ -16,9 +16,10 @@ class AltsController < ApplicationController
   # PATCH/PUT /alts/1/convert_to_book
   def convert_to_book
     book = @alt.convert_to_book
-    
+    @books = Book.all
+
     if book
-      render json: book
+      render json: @books.sort_by{ |book| book.title } , status: :accepted
     else
       render json: book.errors, status: :unprocessable_entity
     end
