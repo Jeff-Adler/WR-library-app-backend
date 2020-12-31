@@ -25,3 +25,7 @@ Models and database are tested for:
 - Proper validation upon model creation
 - Destruction of dependent model upon model deletion
 - Database integrity when converting Book References to Duplicates (labeled as Book and Alts, respectively), and vice versa
+
+## Note:
+
+- Currently, if book has duplicate(s), and is converted to duplicate itself, all of its duplicates will be destroyed. Intended behavior: disallow conversion to duplicate if book has duplicates. Thus, final test in book_spec.rb, which tests this behavior, is pending.

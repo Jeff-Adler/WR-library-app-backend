@@ -59,4 +59,5 @@ RSpec.describe Book, type: :model do
     .and change(Alt.all, :count).by(1)
     .and change(@book.alts, :count).by(1)
   end
+  it "it is invalid to convert book to alts if book has duplicates" 
 end
